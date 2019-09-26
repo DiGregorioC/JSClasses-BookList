@@ -1,5 +1,5 @@
 class Book {
-  contructor(title, author, isbn) {
+  constructor(title, author, isbn) {
     this.title = title
     this.author = author
     this.isbn = isbn
@@ -9,19 +9,21 @@ class Book {
 class UI {
 
   addBooktoList(book) {
-    const list = document.getElementByID('book-list')
+    const list = document.getElementById('book-list')
     const row = document.createElement('tr')
-    row.innerHTML =
-      <td>${book.title}</td>,
-      <td>${book.author}</td>,
-      <td>${book.isbn}</td>,
+    row.innerHTML = `
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.isbn}</td>
       <td><a href="" class="delete">X</a></td>
+      `
+    list.appendChild(row)
   }
 
   showAlert(message, className) {
     const div = document.createElement('div')
 
-    //Add className
+    //Add class Name
 
     div.className =  `alert ${className}`
 
@@ -33,23 +35,37 @@ class UI {
 
     container.insertBefore(div, form)
 
-    setTimeOut(function(){
+    setTimeout(function(){
 
-    })
+      document.querySelector('.alert').remove()
+    }, 3000)
+
+    }
+  deleteBook(target) {
+
+    if(target.className === 'delete') {
+      target.parentElement.parentElement.remove()
+    }
   }
-}
+
+  clearFields() {
+    document.getElementById('title').value = ''
+    document.getElementById('author').value = ''
+    document.getElementById('isbn').value = ''
+  }
+  }
 
 
-document.getElementByID('book-form').addEventListener('submit', function(event){
+document.getElementById('book-form').addEventListener('submit', function(event){
 
-  const title = document.getElementByID('title').value
-  const author = document.getElementByID('author').value
-  const isbn = document.getElementByID('idbn').value
+  const title = document.getElementById('title').value
+  const author = document.getElementById('author').value
+  const isbn = document.getElementById('isbn').value
 
 
   const book = new Book(title, author, isbn)
 
-  const UI = new UI()
+  const ui = new UI()
 
 
   if(title === '' || author === '' || isbn === '') {
