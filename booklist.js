@@ -17,10 +17,30 @@ class UI {
       <td>${book.isbn}</td>,
       <td><a href="" class="delete">X</a></td>
   }
+
+  showAlert(message, className) {
+    const div = document.createElement('div')
+
+    //Add className
+
+    div.className =  `alert ${className}`
+
+    div.appendChild(document.createTextNode(message))
+
+    const container = document.querySelector('.container')
+
+    const form = document.querySelector('#book-form')
+
+    container.insertBefore(div, form)
+
+    setTimeOut(function(){
+
+    })
+  }
 }
 
 
-document.getElementByID('book-form').addEventListener('submit', function(element){
+document.getElementByID('book-form').addEventListener('submit', function(event){
 
   const title = document.getElementByID('title').value
   const author = document.getElementByID('author').value
@@ -30,4 +50,18 @@ document.getElementByID('book-form').addEventListener('submit', function(element
   const book = new Book(title, author, isbn)
 
   const UI = new UI()
+
+
+  if(title === '' || author === '' || isbn === '') {
+
+    ui.showAlert('Please Fill in All Fields', 'error')
+  } else {
+    ui.addBooktoList(book)
+
+    ui.showAlert('Book Added!', 'success')
+
+    ui.clearFields()
+  }
+
+  event.preventDefault()
 })
