@@ -81,3 +81,13 @@ document.getElementById('book-form').addEventListener('submit', function(event){
 
   event.preventDefault()
 })
+document.getElementById('book-list').addEventListener('click', function(event){
+
+  const ui = new UI()
+
+  ui.deleteBook(event.target)
+
+  ui.showAlert('Book Removed!', 'success')
+
+  event.preventDefault()
+})
